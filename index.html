@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Omkar Ghate — Portfolio</title>
+  <meta name="description" content="Personal portfolio of projects, skills, and contact information." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0b0e14;
+      --bg-soft: #111522;
+      --card: #151a2b;
+      --text: #e5e7eb;
+      --muted: #9aa4b2;
+      --brand: #7c3aed; /* violet-600 */
+      --brand-2: #22d3ee; /* cyan-400 */
+      --ok: #10b981; --warn:#f59e0b; --bad:#ef4444;
+      --ring: rgba(124,58,237,.4);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    :root.light{
+      --bg: #f8fafc;
+      --bg-soft: #eef2ff;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --brand: #6d28d9;
+      --brand-2: #0891b2;
+      --ring: rgba(99,102,241,.35);
+      --shadow: 0 10px 30px rgba(2,6,23,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial; color:var(--text); background:radial-gradient(1200px 600px at 10% -10%, rgba(124,58,237,.15), transparent 60%), radial-gradient(900px 500px at 90% -20%, rgba(34,211,238,.15), transparent 60%), var(--bg);
+    }
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+    .container{max-width:1120px; margin-inline:auto; padding:0 1.25rem}
+    .nav{
+      position:sticky; top:0; z-index:50; backdrop-filter:saturate(140%) blur(6px); background:color-mix(in srgb, var(--bg) 80%, transparent);
+      border-bottom:1px solid color-mix(in srgb, var(--text) 10%, transparent);
+    }
+    .nav-inner{display:flex; align-items:center; justify-content:space-between; height:64px}
+    .brand{display:flex; gap:.75rem; align-items:center; font-weight:800}
+    .brand .logo{width:36px; height:36px; display:grid; place-items:center; border-radius:12px; background:linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow:var(--shadow)}
+    .nav a{opacity:.9}
+    .nav a:hover{opacity:1}
+    .nav-links{display:flex; gap:1rem; align-items:center}
+    .btn{display:inline-flex; align-items:center; gap:.5rem; padding:.6rem .9rem; border-radius:12px; border:1px solid color-mix(in srgb, var(--text) 12%, transparent); background:linear-gradient(180deg, color-mix(in srgb, var(--card) 80%, transparent), var(--card)); box-shadow:var(--shadow)}
+    .btn:hover{transform:translateY(-1px)}
+    .ghost{background:transparent}
+
+    /* Hero */
+    .hero{padding:5rem 0 3rem}
+    .hero-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:2rem; align-items:center}
+    .headline{font-size:clamp(2rem, 2.5vw + 1rem, 3.25rem); line-height:1.1; font-weight:900; letter-spacing:-.02em}
+    .sub{color:var(--muted); font-size:1.05rem}
+    .tags{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1rem}
+    .tag{font-size:.8rem; border:1px solid color-mix(in srgb, var(--text) 14%, transparent); padding:.35rem .6rem; border-radius:999px; background:color-mix(in srgb, var(--card) 60%, transparent)}
+    .hero-card{background:linear-gradient(180deg, color-mix(in srgb, var(--card) 80%, transparent), var(--card)); padding:1rem; border-radius:18px; border:1px solid color-mix(in srgb, var(--text) 10%, transparent); box-shadow:var(--shadow)}
+    .hero-card img{border-radius:14px}
+
+    /* Sections */
+    section{padding:3rem 0}
+    .section-title{font-size:1.5rem; font-weight:800; margin-bottom:1rem}
+    .grid{display:grid; gap:1rem}
+
+    /* About */
+    .about{display:grid; grid-template-columns: 1fr 1fr; gap:2rem}
+    .kpis{display:grid; grid-template-columns: repeat(3, 1fr); gap:1rem}
+    .kpi{background:var(--card); border:1px solid color-mix(in srgb, var(--text) 10%, transparent); padding:1rem; border-radius:16px; text-align:center}
+    .kpi .num{font-weight:900; font-size:1.5rem}
+    .kpi .label{color:var(--muted); font-size:.9rem}
+
+    /* Skills */
+    .skill-list{display:flex; flex-wrap:wrap; gap:.6rem}
+    .skill{background:var(--card); border:1px solid color-mix(in srgb, var(--text) 10%, transparent); padding:.5rem .75rem; border-radius:999px; font-size:.9rem}
+
+    /* Projects */
+    .toolbar{display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:1rem}
+    .input{padding:.6rem .8rem; border-radius:12px; border:1px solid color-mix(in srgb, var(--text) 14%, transparent); background:var(--card); color:var(--text)}
+    .projects{display:grid; grid-template-columns: repeat(3, 1fr); gap:1rem}
+    .card{background:var(--card); border:1px solid color-mix(in srgb, var(--text) 10%, transparent); border-radius:16px; overflow:hidden; display:flex; flex-direction:column; transition:transform .2s}
+    .card:hover{transform:translateY(-2px)}
+    .card-img{aspect-ratio:16/9; background:linear-gradient(135deg, color-mix(in srgb, var(--brand) 40%, transparent), color-mix(in srgb, var(--brand-2) 30%, transparent)); display:grid; place-items:center; font-weight:800; letter-spacing:.1em}
+    .card-body{padding:1rem; display:flex; flex-direction:column; gap:.5rem}
+    .card-title{font-weight:800}
+    .chips{display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.25rem}
+    .chip{font-size:.75rem; border:1px solid color-mix(in srgb, var(--text) 14%, transparent); padding:.25rem .5rem; border-radius:999px}
+
+    /* Timeline */
+    .timeline{position:relative; padding-left:1.2rem;}
+    .timeline:before{content:""; position:absolute; left:.4rem; top:.25rem; bottom:.25rem; width:2px; background:color-mix(in srgb, var(--text) 12%, transparent)}
+    .tl-item{position:relative; padding:.25rem 0 .75rem .8rem}
+    .tl-item:before{content:""; position:absolute; left:-.25rem; top:.5rem; width:.6rem; height:.6rem; border-radius:999px; background:linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow:0 0 0 3px color-mix(in srgb, var(--text) 8%, transparent)}
+    .tl-role{font-weight:700}
+    .tl-meta{color:var(--muted); font-size:.9rem}
+
+    /* Contact */
+    .contact{display:grid; grid-template-columns: 1.1fr .9fr; gap:1rem}
+    .field{display:grid; gap:.35rem}
+    .field input, .field textarea{padding:.75rem .9rem; border-radius:12px; border:1px solid color-mix(in srgb, var(--text) 14%, transparent); background:var(--card); color:var(--text)}
+
+    /* Footer */
+    footer{padding:2rem 0; color:var(--muted); border-top:1px solid color-mix(in srgb, var(--text) 10%, transparent)}
+
+    /* Utilities */
+    .row{display:flex; align-items:center; gap:.75rem}
+    .spacer{height:2rem}
+    .hide{display:none}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid, .about, .contact{grid-template-columns:1fr}
+      .projects{grid-template-columns: repeat(2, 1fr)}
+    }
+    @media (max-width: 640px){
+      .nav-links{display:none}
+      .projects{grid-template-columns: 1fr}
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <div class="logo">⚡</div>
+        <a href="#home" aria-label="Go to top">Omkar Ghate</a>
+      </div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+        <button id="themeToggle" class="btn ghost" aria-label="Toggle theme">🌓</button>
+        <a id="downloadResume" class="btn" href="Omkar_Ghate_Resume.pdf" download>Resume</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="home" class="hero">
+    <div class="container hero-grid">
+      <div>
+        <h1 class="headline">Building fast, delightful web apps.</h1>
+        <p class="sub">Frontend-focused developer with a love for clean UI, accessible UX, and robust engineering. Currently exploring Blockchain & Distributed Ledger Technologies.</p>
+        <div class="tags">
+          <span class="tag">JavaScript</span>
+          <span class="tag">React</span>
+          <span class="tag">Node</span>
+        </div>
+        <div class="spacer"></div>
+        <div class="row">
+          <a class="btn" href="#projects">🚀 See Projects</a>
+          <a class="btn ghost" href="mailto:omkarghate21@gmail.com">✉️ Email Me</a>
+        </div>
+      </div>
+      <!-- <div class="hero-card">
+        <img src="https://images.unsplash.com/photo-1526378722484-bd91ca387e72?q=80&w=1920&auto=format&fit=crop" alt="Abstract developer workspace" loading="lazy" />
+      </div> -->
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container about">
+      <div>
+        <h2 class="section-title">About</h2>
+        <p>Hi! I’m Omkar, a JavaScript developer who’s built projects like an Employee Management System, Hotel Management System, a Google Classroom clone, and a Loan Prediction System. I love crafting polished experiences and scalable frontends.</p>
+        <p>Beyond the browser, I’m learning blockchain, smart contracts, and how distributed systems change product architecture.</p>
+      </div>
+      <div>
+        <div class="kpis">
+          <div class="kpi"><div class="num" id="kpiExp">2+</div><div class="label">Years Coding</div></div>
+          <div class="kpi"><div class="num" id="kpiProj">6</div><div class="label">Projects</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <h2 class="section-title">Skills</h2>
+      <div class="skill-list" id="skillList"></div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <h2 class="section-title">Projects</h2>
+      <div class="toolbar">
+        <input id="search" class="input" type="search" placeholder="Search projects… (e.g., React, API, Web3)" />
+        <select id="filter" class="input" aria-label="Filter by type">
+          <option value="all">All Types</option>
+          <option value="webapp">Web App</option>
+          <option value="frontend">Frontend</option>
+          <option value="backend">Backend</option>
+          <option value="ml">ML/DS</option>
+          <option value="blockchain">Blockchain</option>
+        </select>
+        <select id="sort" class="input" aria-label="Sort projects">
+          <option value="recent">Sort: Recent</option>
+          <option value="alpha">Sort: A → Z</option>
+          <option value="stars">Sort: Stars</option>
+        </select>
+      </div>
+      <div class="projects" id="projectGrid"></div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <h2 class="section-title">Experience</h2>
+      <div class="timeline" id="timeline"></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container contact">
+      <div>
+        <h2 class="section-title">Contact</h2>
+        <p class="sub">Have a project in mind or want to jam on ideas? Let’s connect.</p>
+        <form id="contactForm" class="grid">
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" required placeholder="Your name" />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required placeholder="you@example.com" />
+          </div>
+          <div class="field">
+            <label for="msg">Message</label>
+            <textarea id="msg" name="message" rows="5" required placeholder="Tell me about your project…"></textarea>
+          </div>
+          <button class="btn" type="submit">Send Message</button>
+          <p id="formStatus" class="sub"></p>
+        </form>
+      </div>
+      <div>
+        <div class="hero-card">
+          <h3>Elsewhere</h3>
+          <ul>
+            <li><a href="www.linkedin.com/in/omkar-ghate-203385283" target="_blank" rel="noreferrer">LinkedIn</a></li>
+          </ul>
+          <div class="spacer"></div>
+          <!-- <h3>Resume</h3> -->
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">© <span id="year"></span> Omkar Ghate</div>
+  </footer>
+
+  <script>
+    // ===== THEME TOGGLE =====
+    const root = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme');
+    if(savedTheme === 'light') root.classList.add('light');
+    themeToggle.addEventListener('click', ()=>{
+      root.classList.toggle('light');
+      localStorage.setItem('theme', root.classList.contains('light') ? 'light' : 'dark');
+    });
+
+    // ===== UTIL =====
+    const $ = (sel, ctx=document) => ctx.querySelector(sel);
+    const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+
+    // ===== DATA =====
+    const skills = [
+      'JavaScript','React','HTML','CSS','Node.js','Express','MongoDB'];
+
+    const projects = [
+      {
+        title: 'Employee Management System',
+        type: 'webapp',
+        stars: 24,
+        tech: ['React','Node','SQL'],
+        img: '',
+        link: '#',
+        desc: 'CRUD app with role-based access, attendance & payroll modules.' ,
+        date: '2024-11-15'
+      },
+      {
+        title: 'Hotel Management System',
+        type: 'backend',
+        stars: 17,
+        tech: ['Node','Express','SQL'],
+        img: '',
+        link: '#',
+        desc: 'Room booking, inventory, and billing APIs with auth & rate limits.' ,
+        date: '2024-06-20'
+      },
+      {
+        title: 'Google Classroom Clone',
+        type: 'frontend',
+        stars: 31,
+        tech: ['React','Firebase'],
+        img: '',
+        link: '#',
+        desc: 'Assignments, comments, and realtime updates with Firebase.' ,
+        date: '2025-02-01'
+      },
+      {
+        title: 'Loan Prediction System',
+        type: 'ml',
+        stars: 20,
+        tech: ['Python','Flask','sklearn'],
+        img: '',
+        link: '#',
+        desc: 'Model to predict loan approvals with explainability charts.' ,
+        date: '2023-12-10'
+      },
+
+    ];
+
+    const timeline = [
+      { role: 'Frontend Developer (Freelance)', org: 'Self‑Employed', period: '2023 — Present', details: 'Built responsive web apps for small businesses with React & Node.' },
+      { role: 'Information Technology Student', org: 'Mumbai University', period: '2021 — 2025', details: 'Focused on web development, data structures, and distributed systems.' }
+    ];
+
+    // ===== RENDERERS =====
+    function renderSkills(){
+      const frag = document.createDocumentFragment();
+      skills.forEach(s=>{
+        const el = document.createElement('span');
+        el.className = 'skill'; el.textContent = s; frag.appendChild(el);
+      });
+      $('#skillList').appendChild(frag);
+    }
+
+    function projectCard(p){
+      const div = document.createElement('article');
+      div.className = 'card';
+      div.innerHTML = `
+        <div class="card-img">${p.img ? `<img src="${p.img}" alt="${p.title}" loading="lazy"/>` : p.title.split(' ').map(w=>w[0]).join('').slice(0,3)}</div>
+        <div class="card-body">
+          <div class="card-title">${p.title}</div>
+          <div class="sub">${p.desc}</div>
+          <div class="chips">${p.tech.map(t=>`<span class="chip">${t}</span>`).join('')}</div>
+          <div class="row" style="margin-top:.5rem">
+            <a class="btn" href="${p.link}" target="_blank" rel="noreferrer">View</a>
+            <span class="sub">★ ${p.stars}</span>
+          </div>
+        </div>`;
+      return div;
+    }
+
+    function renderProjects(list){
+      const grid = $('#projectGrid');
+      grid.innerHTML = '';
+      const frag = document.createDocumentFragment();
+      list.forEach(p=> frag.appendChild(projectCard(p)));
+      grid.appendChild(frag);
+    }
+
+    function renderTimeline(){
+      const cont = $('#timeline');
+      timeline.forEach(t=>{
+        const el = document.createElement('div');
+        el.className = 'tl-item';
+        el.innerHTML = `<div class="tl-role">${t.role} — ${t.org}</div><div class="tl-meta">${t.period}</div><div>${t.details}</div>`;
+        cont.appendChild(el);
+      });
+    }
+
+    // ===== INTERACTIONS =====
+    function setupProjectsToolbar(){
+      const search = $('#search');
+      const filter = $('#filter');
+      const sort = $('#sort');
+
+      const apply = () => {
+        const q = search.value.trim().toLowerCase();
+        const f = filter.value;
+        const s = sort.value;
+        let list = projects.filter(p => {
+          const hay = (p.title + ' ' + p.desc + ' ' + p.tech.join(' ')).toLowerCase();
+          const matchesQ = !q || hay.includes(q);
+          const matchesF = f === 'all' || p.type === f;
+          return matchesQ && matchesF;
+        });
+        if(s==='recent') list.sort((a,b)=> new Date(b.date) - new Date(a.date));
+        if(s==='alpha') list.sort((a,b)=> a.title.localeCompare(b.title));
+        if(s==='stars') list.sort((a,b)=> b.stars - a.stars);
+        renderProjects(list);
+      };
+
+      [search, filter, sort].forEach(el=> el.addEventListener('input', apply));
+      apply();
+    }
+
+    // ===== FORM (no backend) =====
+    $('#contactForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      console.log('Contact submission', data);
+      const status = $('#formStatus');
+      status.textContent = 'Thanks! Your message is saved locally' ;
+      status.style.color = 'var(--ok)';
+      e.target.reset();
+    });
+
+    // ===== RESUME LINK =====
+    (function(){
+      const a = document.getElementById('downloadResume');
+      const filename = 'Omkar_Ghate_Resume.pdf';
+      fetch(filename, { method: 'HEAD' })
+        .then(r=>{ if(r.ok){ a.href = filename; } else { a.classList.add('ghost'); a.textContent = 'Add Resume PDF'; } })
+        .catch(()=> { a.classList.add('ghost'); a.textContent = 'Add Resume PDF'; });
+    })();
+
+    // ===== MISC =====
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.documentElement.style.scrollBehavior = 'smooth';
+
+    // ===== INIT =====
+    renderSkills();
+    renderTimeline();
+    setupProjectsToolbar();
+  </script>
+</body>
+</html>
