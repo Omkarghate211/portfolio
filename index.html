@@ -417,7 +417,7 @@
     // ===== RESUME LINK =====
     (function(){
       const a = document.getElementById('downloadResume');
-      const filename = 'Omkar_Ghate_Resume.pdf';
+      const filename = 'Omkar's Resume.pdf';
       fetch(filename, { method: 'HEAD' })
         .then(r=>{ if(r.ok){ a.href = filename; } else { a.classList.add('ghost'); a.textContent = 'Add Resume PDF'; } })
         .catch(()=> { a.classList.add('ghost'); a.textContent = 'Add Resume PDF'; });
